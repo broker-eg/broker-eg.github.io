@@ -1,5 +1,6 @@
 <!doctype html>
-<html lang="en" dir="ltr">
+<!-- Defaults are Arabic + light; the script below swaps in a stored preference. -->
+<html lang="ar" dir="rtl">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -18,17 +19,21 @@
       // No-FOUC: apply persisted theme + language direction before React mounts.
       (function () {
         try {
+          // Light is the default, NOT the OS preference: a broker showing a property
+          // on a phone in daylight gets the register in ink-on-paper unless they have
+          // chosen otherwise. 'system' is still available from the toggle.
           var stored = localStorage.getItem('brokeros-theme');
-          var theme = 'system';
+          var theme = 'light';
           if (stored) {
             var parsed = JSON.parse(stored);
-            theme = (parsed && parsed.state && parsed.state.theme) || 'system';
+            theme = (parsed && parsed.state && parsed.state.theme) || 'light';
           }
           var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
           var isDark = theme === 'dark' || (theme === 'system' && prefersDark);
           document.documentElement.classList.toggle('dark', isDark);
 
-          var lng = localStorage.getItem('i18nextLng') || 'en';
+          // Arabic unless the visitor has picked otherwise — the office works in it.
+          var lng = localStorage.getItem('i18nextLng') || 'ar';
           var lang = lng.indexOf('ar') === 0 ? 'ar' : 'en';
           document.documentElement.setAttribute('lang', lang);
           document.documentElement.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
@@ -37,7 +42,7 @@
         }
       })();
     </script>
-    <script type="module" crossorigin src="/assets/index-Bu1GCbPx.js"></script>
+    <script type="module" crossorigin src="/assets/index-C30C27MN.js"></script>
     <link rel="stylesheet" crossorigin href="/assets/index-DBss14cR.css">
   </head>
   <body>
