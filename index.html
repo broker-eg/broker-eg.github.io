@@ -4,7 +4,14 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- `viewport-fit=cover` is what makes env(safe-area-inset-*) resolve to anything
+         other than 0 — the bottom-pinned bars (save bar, selection bar, drawer foot)
+         read it so they clear the iOS home indicator. No `maximum-scale`/`user-scalable`:
+         pinch-zoom stays available. -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
     <meta name="color-scheme" content="light dark" />
     <title>BrokerOS</title>
     <!-- Type system: Bricolage Grotesque (display) · IBM Plex Sans + Arabic (body,
@@ -42,8 +49,8 @@
         }
       })();
     </script>
-    <script type="module" crossorigin src="/assets/index-C30C27MN.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-DBss14cR.css">
+    <script type="module" crossorigin src="/assets/index-CTpy1B-L.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-CZB22dfn.css">
   </head>
   <body>
     <div id="root"></div>
