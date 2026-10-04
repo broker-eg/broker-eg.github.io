@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <!-- `viewport-fit=cover` is what makes env(safe-area-inset-*) resolve to anything
-         other than 0 — the bottom-pinned bars (save bar, selection bar, drawer foot)
+         other than 0 — the bottom-pinned bars (tab bar, save bar, selection bar)
          read it so they clear the iOS home indicator. No `maximum-scale`/`user-scalable`:
          pinch-zoom stays available. -->
     <meta
@@ -14,6 +14,28 @@
     />
     <meta name="color-scheme" content="light dark" />
     <title>BrokerOS</title>
+    <!-- Installable (Add to Home Screen) — a manifest + icons, no service worker. URLs in
+         the manifest are relative to it, so the app installs from `/` or a `./` base alike;
+         Vite rewrites the absolute public paths below to the build's base. Regenerate the
+         icons from favicon.svg with the recipe in CLAUDE.md. -->
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon-180.png" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="BrokerOS" />
+    <!-- The installed app draws under a transparent status bar with WHITE text; the brand
+         strip behind it (styles/index.css, display-mode: standalone) keeps that legible. -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <!-- The browser chrome takes the header's colour. Two variants for the first paint;
+         ThemeProvider then sets BOTH to the app's own theme (which can differ from the OS). -->
+    <meta name="theme-color" content="#FAFBF9" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#13201A" media="(prefers-color-scheme: dark)" />
+    <!-- Generic link preview (WhatsApp/iMessage read these from the static HTML; a HashRouter
+         SPA cannot vary them per page). og:image must be absolute — user site, served at root. -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="BrokerOS" />
+    <meta property="og:description" content="Property management for real estate offices." />
+    <meta property="og:image" content="https://broker-eg.github.io/banner%2Blogo.png" />
     <!-- Type system: Bricolage Grotesque (display) · IBM Plex Sans + Arabic (body,
          solves AR/EN) · IBM Plex Mono (the "register" voice — reference codes, data). -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -38,6 +60,11 @@
           var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
           var isDark = theme === 'dark' || (theme === 'system' && prefersDark);
           document.documentElement.classList.toggle('dark', isDark);
+          // The app's theme, not the OS's (see ThemeProvider), from the very first paint.
+          var metas = document.querySelectorAll('meta[name="theme-color"]');
+          for (var i = 0; i < metas.length; i++) {
+            metas[i].setAttribute('content', isDark ? '#13201A' : '#FAFBF9');
+          }
 
           // Arabic unless the visitor has picked otherwise — the office works in it.
           var lng = localStorage.getItem('i18nextLng') || 'ar';
@@ -49,8 +76,8 @@
         }
       })();
     </script>
-    <script type="module" crossorigin src="/assets/index-BRLWou7J.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-GA5WmtIo.css">
+    <script type="module" crossorigin src="/assets/index-Dom6hi8Q.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-MYVo7tOQ.css">
   </head>
   <body>
     <div id="root"></div>
