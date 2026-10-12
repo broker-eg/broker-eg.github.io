@@ -31,11 +31,16 @@
     <meta name="theme-color" content="#FAFBF9" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#13201A" media="(prefers-color-scheme: dark)" />
     <!-- Generic link preview (WhatsApp/iMessage read these from the static HTML; a HashRouter
-         SPA cannot vary them per page). og:image must be absolute — user site, served at root. -->
+         SPA cannot vary them per page, so every share link previews with this). og:image must
+         be absolute — user site, served at root. It is OUR key mark, drawn by
+         scripts/make-icons.py — never another company's logo. -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content="BrokerOS" />
     <meta property="og:description" content="Property management for real estate offices." />
-    <meta property="og:image" content="https://broker-eg.github.io/banner%2Blogo.png" />
+    <meta property="og:image" content="https://broker-eg.github.io/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="BrokerOS" />
     <!-- Type system: Bricolage Grotesque (display) · IBM Plex Sans + Arabic (body,
          solves AR/EN) · IBM Plex Mono (the "register" voice — reference codes, data). -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
